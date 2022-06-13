@@ -2,12 +2,12 @@ keras==2.8.0
 numpy==1.21.6
 opencv-python==4.5.1.48
 gunicorn
-Flask-SocketIO
 Flask
 eventlet
 gevent
 gevent-websocket
 greenlet
-python-engineio
-python-socketio
 Pillow
+Flask-SocketIO==4.3.1
+python-engineio==3.13.2
+python-socketio==4.6.0
