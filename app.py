@@ -1,8 +1,8 @@
 from flask import Flask,render_template,Response
 from flask_socketio import SocketIO
 import cv2
-import tensorflow as tf
-# from keras.models import load_model
+# import tensorflow as tf
+from keras.models import load_model
 import numpy as np
 from camera import Camera
 from emotion_detection import EmotionDetection
@@ -15,7 +15,7 @@ socketio = SocketIO(app)
 # camera=cv2.VideoCapture(0)
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 cl = {0: 'angry',1: 'disguist',2: 'fear',3: 'happy',4: 'neutral',5: 'sad',6: 'surprised'}
-model = tf.keras.models.load_model('best_model.h5')
+model = load_model('best_model.h5')
 camera = Camera(EmotionDetection(model,face_cascade,cl))
 
 # def generate_frames():
