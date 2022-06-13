@@ -1,6 +1,7 @@
 
 import cv2
 # import tensorflow as tf
+from PIL import Image
 from keras.models import load_model
 import numpy as np
 
@@ -11,6 +12,7 @@ class EmotionDetection(object):
         self.cl = cl
 
     def process(self, img):
+        img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
         faces = self.face_cascade.detectMultiScale(gray, 1.1,7)
@@ -27,4 +29,6 @@ class EmotionDetection(object):
             pred = np.argmax(result)
             pred = self.cl[pred]
             cv2.putText(img, pred, (x+20, y-60), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img = Image.fromarray(img)
         return img

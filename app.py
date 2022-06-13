@@ -25,6 +25,12 @@ camera = Camera(EmotionDetection(model,face_cascade,cl))
 def test_message(input):
     input = input.split(",")[1]
     camera.enqueue_input(input)
+
+    image_data = camera.get_frame()  # Do your magical Image processing here!!
+    #image_data = image_data.decode("utf-8")
+    image_data = "data:image/jpeg;base64," + image_data
+    print("OUTPUT " + image_data)
+    emit('out-image-event', {'image_data': image_data}, namespace='/test')
     #camera.enqueue_input(base64_to_pil_image(input))
 
 
@@ -66,6 +72,8 @@ def test_connect():
 #         yield(b'--frame\r\n'
 #                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 def generate_frames():
+
+    app.logger.info("starting to generate frames!")
     while True:
         frame=camera.get_frame() 
         yield (b'--frame\r\n'
