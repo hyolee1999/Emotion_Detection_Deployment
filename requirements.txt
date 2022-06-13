@@ -4,4 +4,8 @@ opencv-python==4.5.1.48
 gunicorn
 Flask-SocketIO
 Flask
-
+gevent
+gevent-websocket
+greenlet
+python-engineio
+python-socketio
