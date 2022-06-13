@@ -10,3 +10,4 @@ gevent-websocket
 greenlet
 python-engineio
 python-socketio
+Pillow
