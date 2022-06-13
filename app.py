@@ -8,15 +8,29 @@ from camera import Camera
 from emotion_detection import EmotionDetection
 # from utils import base64_to_pil_image, pil_image_to_base64
 from sys import stdout
+import logging
 
 
 app=Flask(__name__)
+app.logger.addHandler(logging.StreamHandler(stdout))
+app.config['DEBUG'] = True
 socketio = SocketIO(app)
 # camera=cv2.VideoCapture(0)
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 cl = {0: 'angry',1: 'disguist',2: 'fear',3: 'happy',4: 'neutral',5: 'sad',6: 'surprised'}
 model = load_model('best_model.h5')
 camera = Camera(EmotionDetection(model,face_cascade,cl))
+
+@socketio.on('input image', namespace='/test')
+def test_message(input):
+    input = input.split(",")[1]
+    camera.enqueue_input(input)
+    #camera.enqueue_input(base64_to_pil_image(input))
+
+
+@socketio.on('connect', namespace='/test')
+def test_connect():
+    app.logger.info("client connected")
 
 # def generate_frames():
 
