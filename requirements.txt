@@ -1,4 +1,4 @@
-keras==2.8.0
+tensorflow-cpu
 numpy==1.21.6
 opencv-python-headless==4.5.3.56
 eventlet==0.30.2
