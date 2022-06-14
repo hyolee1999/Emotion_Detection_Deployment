@@ -1,5 +1,5 @@
-import threading
-import binascii
+# import threading
+# import binascii
 from time import sleep
 # from utils import base64_to_pil_image, pil_image_to_base64
 from utils import base64_to_opencv,opencv_to_base64
@@ -10,9 +10,9 @@ class Camera(object):
         self.to_output = []
         self.process = process
 
-        thread = threading.Thread(target=self.keep_processing, args=())
-        thread.daemon = True
-        thread.start()
+#         thread = threading.Thread(target=self.keep_processing, args=())
+#         thread.daemon = True
+#         thread.start()
 
     def process_one(self):
         if not self.to_process:
