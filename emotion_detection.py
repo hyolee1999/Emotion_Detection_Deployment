@@ -2,7 +2,7 @@
 import cv2
 # import tensorflow as tf
 from PIL import Image
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 import numpy as np
 
 class EmotionDetection(object):
