@@ -28,9 +28,9 @@ def test_message(input):
 
     input = input.split(",")[1]
     # app.logger.info(request.namespace.socket.sessid)
-    camera.enqueue_input((request.namespace,input))
+    camera.enqueue_input((request.sid,input))
     # app.logger.info(request.namespace.socket.sessid)
-    image_data = camera.get_frame(request.namespace)  # Do your magical Image processing here!!
+    image_data = camera.get_frame(request.sid)  # Do your magical Image processing here!!
     # print(image_data)
     image_data = image_data.decode("utf-8")
     
