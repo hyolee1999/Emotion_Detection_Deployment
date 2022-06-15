@@ -27,10 +27,10 @@ camera = Camera(EmotionDetection(model,face_cascade,cl))
 def test_message(input):
 
     input = input.split(",")[1]
-    app.logger.info(request.namespace.socket.sessid)
-    camera.enqueue_input((request.namespace.socket.sessid,input))
-    app.logger.info(request.namespace.socket.sessid)
-    image_data = camera.get_frame(request.namespace.socket.sessid)  # Do your magical Image processing here!!
+    # app.logger.info(request.namespace.socket.sessid)
+    camera.enqueue_input((request.namespace,input))
+    # app.logger.info(request.namespace.socket.sessid)
+    image_data = camera.get_frame(request.namespace)  # Do your magical Image processing here!!
     # print(image_data)
     image_data = image_data.decode("utf-8")
     
@@ -42,7 +42,7 @@ def test_message(input):
 
 @socketio.on('connect', namespace='/test')
 def test_connect():
-    app.logger.info("client connected : {}".format(request.namespace.socket.sessid))
+    app.logger.info("client connected")
     
 
 # def generate_frames():
