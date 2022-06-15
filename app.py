@@ -29,8 +29,9 @@ def test_message(input):
     input = input.split(",")[1]
     # app.logger.info(request.namespace.socket.sessid)
     camera.enqueue_input((request.sid,input))
-    # app.logger.info(request.namespace.socket.sessid)
+    app.logger.info(request.sid)
     image_data = camera.get_frame(request.sid)  # Do your magical Image processing here!!
+    app.logger.info(request.sid)
     # print(image_data)
     image_data = image_data.decode("utf-8")
     
@@ -42,7 +43,7 @@ def test_message(input):
 
 @socketio.on('connect', namespace='/test')
 def test_connect():
-    app.logger.info("client connected")
+    app.logger.info("client connected :{}".format(request.sid))
     
 
 # def generate_frames():
