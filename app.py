@@ -1,4 +1,4 @@
-from flask import Flask,render_template,Response
+from flask import Flask,render_template,Response,request
 from flask_socketio import SocketIO, emit
 import cv2
 # import tensorflow as tf
@@ -27,13 +27,10 @@ camera = Camera(EmotionDetection(model,face_cascade,cl))
 def test_message(input):
 
     input = input.split(",")[1]
-    camera.enqueue_input(input)
+    camera.enqueue_input((request.namespace.socket.sessid,input))
 
-    image_data = camera.get_frame()  # Do your magical Image processing here!!
-#     input_img = base64_to_opencv(input)
-#     output_img = model.process(input_img)
-#     image_data = opencv_to_base64(output_img)
-
+    image_data = camera.get_frame(request.namespace.socket.sessid)  # Do your magical Image processing here!!
+    # print(image_data)
     image_data = image_data.decode("utf-8")
     
     image_data = "data:image/jpeg;base64," + image_data

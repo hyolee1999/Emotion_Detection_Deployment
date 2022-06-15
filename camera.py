@@ -23,7 +23,7 @@ class Camera(object):
 
         # convert it to a CV image
         # input_img = base64_to_pil_image(input_str)
-        input_img = base64_to_opencv(input_str)
+        input_img = base64_to_opencv(input_str[1])
         ################## where the hard work is done ############
         # output_img is an CV image
         output_img = self.process.process(input_img)
@@ -34,7 +34,9 @@ class Camera(object):
 
         # convert eh base64 string in ascii to base64 string in _bytes_
         # 
-        self.to_output.append(output_str)
+        if input_str[0] not in self.to_output:
+            self.to_output[input_str[0]] = []
+        self.to_output[input_str[0]].append(output_str)
         # self.to_output.append(binascii.a2b_base64(output_str))
 
     def keep_processing(self):
@@ -45,7 +47,7 @@ class Camera(object):
     def enqueue_input(self, input):
         self.to_process.append(input)
 
-    def get_frame(self):
-        while not self.to_output:
+    def get_frame(self,id):
+        while not self.to_output[id]:
             sleep(0.05)
-        return self.to_output.pop(0)
+        return self.to_output[id].pop(0)
