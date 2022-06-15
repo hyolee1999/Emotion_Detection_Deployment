@@ -7,7 +7,7 @@ from utils import base64_to_opencv,opencv_to_base64
 class Camera(object):
     def __init__(self, process):
         self.to_process = []
-        self.to_output = []
+        self.to_output = {}
         self.process = process
 
         thread = threading.Thread(target=self.keep_processing, args=())
