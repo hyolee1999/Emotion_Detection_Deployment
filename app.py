@@ -7,7 +7,7 @@ import numpy as np
 from camera import Camera
 from emotion_detection import EmotionDetection
 # from utils import base64_to_pil_image, pil_image_to_base64
-from utils import base64_to_opencv,opencv_to_base64
+# from utils import base64_to_opencv,opencv_to_base64
 from sys import stdout
 import logging
 
@@ -20,19 +20,19 @@ socketio = SocketIO(app)
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 cl = {0: 'angry',1: 'disguist',2: 'fear',3: 'happy',4: 'neutral',5: 'sad',6: 'surprised'}
 model = load_model('best_model.h5')
-# camera = Camera(EmotionDetection(model,face_cascade,cl))
-model = EmotionDetection(model,face_cascade,cl)
+camera = Camera(EmotionDetection(model,face_cascade,cl))
+# model = EmotionDetection(model,face_cascade,cl)
 
 @socketio.on('input image', namespace='/test')
 def test_message(input):
 
     input = input.split(",")[1]
-#     camera.enqueue_input(input)
+    camera.enqueue_input(input)
 
-#     image_data = camera.get_frame()  # Do your magical Image processing here!!
-    input_img = base64_to_opencv(input)
-    output_img = model.process(input_img)
-    image_data = opencv_to_base64(output_img)
+    image_data = camera.get_frame()  # Do your magical Image processing here!!
+#     input_img = base64_to_opencv(input)
+#     output_img = model.process(input_img)
+#     image_data = opencv_to_base64(output_img)
 
     image_data = image_data.decode("utf-8")
     
