@@ -18,7 +18,7 @@ $(document).ready(function(){
       let dataURL = canvas.toDataURL('image/jpeg');
       socket.emit('input image', dataURL);
   
-      socket.emit('output image')
+      // socket.emit('output image')
   
       var img = new Image();
       socket.on('out-image-event',function(data){
@@ -35,6 +35,15 @@ $(document).ready(function(){
     socket.on('connect', function() {
       console.log('Connected!');
     });
+
+    socket.on('disconnect', function() {
+      console.log('disconnected!');
+    });
+
+
+    // socket.on('disconnect', function() {
+    //   console.log('Disconnected!');
+    // });
   
     var constraints = {
       video: {

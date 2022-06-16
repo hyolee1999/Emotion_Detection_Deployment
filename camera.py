@@ -48,8 +48,8 @@ class Camera(object):
         self.to_process.append(input)
 
     def get_frame(self,id):
-        while id not in self.to_output:
-            sleep(0.05)
+        if id not in self.to_output:
+            self.to_output[id] = []
         while not self.to_output[id]:
             sleep(0.05)
         return self.to_output[id].pop(0)

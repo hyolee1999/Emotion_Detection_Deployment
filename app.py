@@ -1,19 +1,19 @@
 from flask import Flask,render_template,Response,request
 from flask_socketio import SocketIO, emit
 import cv2
-# import tensorflow as tf
+
 from tensorflow.keras.models import load_model
 import numpy as np
 from camera import Camera
 from emotion_detection import EmotionDetection
-# from utils import base64_to_pil_image, pil_image_to_base64
-# from utils import base64_to_opencv,opencv_to_base64
+
 from sys import stdout
 import logging
 
 
 app=Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(stdout))
+# app.logger.setLevel(logging.INFO)
 app.config['DEBUG'] = True
 socketio = SocketIO(app)
 
@@ -29,9 +29,9 @@ def test_message(input):
     input = input.split(",")[1]
     # app.logger.info(request.namespace.socket.sessid)
     camera.enqueue_input((request.sid,input))
-    app.logger.info(request.sid)
+    # app.logger.info(request.sid)
     image_data = camera.get_frame(request.sid)  # Do your magical Image processing here!!
-    app.logger.info(request.sid)
+    # app.logger.info(request.sid)
     # print(image_data)
     image_data = image_data.decode("utf-8")
     
@@ -43,7 +43,17 @@ def test_message(input):
 
 @socketio.on('connect', namespace='/test')
 def test_connect():
+    # app.logger.info("Length : %d" % len (camera.to_output))
     app.logger.info("client connected :{}".format(request.sid))
+
+@socketio.on('disconnect', namespace='/test')
+def test_connect():
+    camera.to_output.pop(request.sid,None)
+    # app.logger.info("Length : %d" % len (camera.to_output))
+    app.logger.info("client disconnected :{}".format(request.sid))
+
+
+
     
 
 # def generate_frames():
