@@ -1,7 +1,7 @@
 from flask import Flask,render_template,Response,request
 from flask_socketio import SocketIO, emit
 import cv2
-
+import os
 from tensorflow.keras.models import load_model
 import numpy as np
 from camera import Camera
@@ -108,4 +108,5 @@ def video():
 
 if __name__=="__main__":
     # app.run(debug=True,port=8000,host="0.0.0.0")
-    socketio.run(app,port=8000,host="0.0.0.0")
+    port = os.getenv('PORT', default=8000)
+    socketio.run(app,port=port,host="0.0.0.0")
