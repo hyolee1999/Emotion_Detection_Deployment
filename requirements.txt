@@ -1,10 +1,10 @@
 tensorflow-cpu
 numpy==1.21.6
 opencv-python-headless==4.5.3.56
-# eventlet==0.30.2
-# gevent
-# gevent-websocket
-# greenlet
+eventlet==0.30.2
+gevent
+gevent-websocket
+greenlet
 # Pillow
 Flask-SocketIO==2.9.1
 python-engineio==1.7.0
