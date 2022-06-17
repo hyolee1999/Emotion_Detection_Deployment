@@ -14,7 +14,7 @@ import logging
 app=Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(stdout))
 # app.logger.setLevel(logging.INFO)
-app.config['DEBUG'] = True
+app.config['DEBUG'] = False
 socketio = SocketIO(app)
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
