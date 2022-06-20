@@ -28,7 +28,7 @@ class EmotionDetection(object):
             result = self.model.predict(image)
             pred = np.argmax(result)
             pred = self.cl[pred]
-            cv2.putText(img, pred, (x+20, y-60), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+            cv2.putText(img, pred, (x+10, y-30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
         # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         # img = Image.fromarray(img)
         return img
